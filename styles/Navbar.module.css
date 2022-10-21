@@ -1,0 +1,34 @@
+.navBarContainer {
+  width: 100%;
+  background-color: #fbfbf9;
+  display: flex;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.navBarContainer li {
+  padding: 1rem 2rem;
+  list-style: none;
+  color: #000;
+  /* height: 50px; */
+}
+
+.homeMenuBtn {
+  color: blanchedalmond;
+  position: relative;
+}
+
+.homeMenuBtn:hover .homeMenu {
+  opacity: 100%;
+  transition: all 0.2s;
+  height: 200px;
+}
+
+.homeMenu {
+  background-color: #fbfbf9;
+  width: 200%;
+  opacity: 0%;
+  position: absolute;
+  height: 0;
+  top: 50px;
+}
