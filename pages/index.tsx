@@ -16,8 +16,10 @@ const Home: NextPage = () => {
     <div>
       <h1>{data.counter.count}</h1>
 
-      {data?.users &&
-        data?.users?.map((post) => {
+      {data?.users?.loading && <h1>Loading..</h1>}
+
+      {data?.users?.users &&
+        data?.users?.users?.map((post) => {
           console.log(post);
           return <h4>{post.login}</h4>;
         })}

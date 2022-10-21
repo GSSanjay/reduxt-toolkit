@@ -18,7 +18,7 @@ const counter = (state = initialState, action: { type: any }) => {
   }
 };
 
-export const getUsers = createAsyncThunk("post/getUsers", async () => {
+export const getUsers = createAsyncThunk("getUsers", async () => {
   return await axios.get("http://api.github.com/users");
 });
 
@@ -39,16 +39,35 @@ const counterSlice = createSlice({
 
 const usersSlice = createSlice({
   name: "users",
-  initialState: [],
-  extraReducers: {
+  initialState: { loading: false, users: [] },
+  //Way 1
+  /*   extraReducers: {
+    [getUsers.pending]: (state) => {
+      return { loading: true };
+    },
     [getUsers.fulfilled]: (state, action) => {
-      return action.payload.data;
+      return { ...state, loading: false, users: action.payload.data };
     },
     [getUsers.rejected]: () => {
-      return [];
+      return ["error"];
     },
+  }, */
+
+  //Way 2
+  extraReducers: (builder) => {
+    builder.addCase(getUsers.fulfilled, (state, action) => {
+      return { ...state, loading: false, users: action.payload.data };
+    });
+
+    builder.addCase(getUsers.pending, (state, action) => {
+      return { loading: true };
+    });
+
+    builder.addCase(getUsers.rejected, (state, action) => {
+      return ["error"];
+    });
   },
-  reducers: undefined,
+  reducers: {},
 });
 
 export const { incr, decr } = counterSlice.actions;
@@ -63,3 +82,5 @@ export const store = configureStore({
     data: rootReducer,
   },
 });
+
+console.log("store", store.getState());
